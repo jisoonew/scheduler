@@ -92,7 +92,7 @@ class Calendarmain extends JFrame implements ActionListener{
 	
 	JTable table = new JTable(model);
 
-	JScrollPane sp;	
+	JScrollPane scrollpane;	
 	
 	JCheckBox finish = new JCheckBox("완료");
 	
@@ -222,7 +222,7 @@ class Calendarmain extends JFrame implements ActionListener{
 
 		setTitle("schedule");
 
-		setSize(1000, 800);
+		setSize(1000, 700);
 
 		setLocation(10, 10);
 
@@ -239,7 +239,6 @@ class Calendarmain extends JFrame implements ActionListener{
 		btn_save.addActionListener(new ActionListener () {  // 저장버튼
 			public void actionPerformed(ActionEvent e){
 				add(e);
-				
 			}
 		});
 
@@ -295,7 +294,6 @@ class Calendarmain extends JFrame implements ActionListener{
 		 buttonAfter.setContentAreaFilled(false); // 버튼 영역 배경 표시 설정
 
 		 buttonAfter.setBorder(BorderFactory.createEmptyBorder(10 , 10 , 10 , 20)); //상 좌 하 우
-
 
 		 panel1.add(searchcombo);
 
@@ -354,7 +352,7 @@ class Calendarmain extends JFrame implements ActionListener{
 
 			 panel2.add(buttons[i]);
 
-			 buttons[i].setFont(new Font("SansSerif", Font.BOLD, 24));
+			 buttons[i].setFont(new Font("SansSerif", Font.BOLD, 18));
 
 			 buttons[i].setContentAreaFilled(false); // 버튼 영역 배경 표시 설정
 
@@ -414,12 +412,13 @@ class Calendarmain extends JFrame implements ActionListener{
 	
 
 	
-	public void data() {
+	public void data() { // JTable 내용
+		
 			String query = null;
 			
-			String check_year_up = check_year.getText();
+			String check_year_up = panel1_year.getText();
 
-			String check_month_up = check_month.getText();
+			String check_month_up = panel1_month.getText();
 		
 			String check_date_up = check_date.getText();
 		
@@ -427,7 +426,7 @@ class Calendarmain extends JFrame implements ActionListener{
 
 				if(query == null) {
 
-					query = "select * from java_table where check_year='"+check_year.getText()+"' && check_month='"+check_month.getText()+"' && check_date='"+check_date.getText()+"'";
+					query = "select * from java_table where check_year='"+panel1_year.getText()+"' && check_month='"+panel1_month.getText()+"' && check_date='"+check_date.getText()+"'";
 
 					
 				rs = stat.executeQuery(query);
@@ -439,6 +438,12 @@ class Calendarmain extends JFrame implements ActionListener{
 				while (rs.next()) {
 
 					msg = new Vector<String>();
+					
+					msg.add(rs.getString(3));
+					
+					msg.add(rs.getString(4));
+					
+					msg.add(rs.getString(5));
 					
 						
 					msg.add(rs.getString(2));
@@ -497,7 +502,6 @@ class Calendarmain extends JFrame implements ActionListener{
 				prestat2 = conn.prepareStatement("delete from java_table where check_year=? and check_month=? and check_date=? and title=? and textfield=?");
 				
 				prestat3 = conn.prepareStatement("UPDATE java_table SET title='"+textfield.getText()+"'");
-				
 
 				
 			} catch (Exception e) {
@@ -513,9 +517,9 @@ class Calendarmain extends JFrame implements ActionListener{
 		try {
 		String finish_up = finish.getText();
 		
-		String check_year_up = check_year.getText();
+		String check_year_up = panel1_year.getText();
 
-		String check_month_up = check_month.getText();
+		String check_month_up = panel1_month.getText();
 	
 		String check_date_up = check_date.getText();
 	
@@ -545,8 +549,6 @@ class Calendarmain extends JFrame implements ActionListener{
 			prestat1.setString(index++, textfield_up);
 
 			prestat1.setString(index++, textArea_up);
-			
-			
 
 			prestat1.executeUpdate();
 
@@ -566,8 +568,8 @@ class Calendarmain extends JFrame implements ActionListener{
 	public void delete(){
 		int index = 1;
 		
-		String textfield_up1 = check_year.getText();
-		String textfield_up2 = check_month.getText();
+		String textfield_up1 = panel1_year.getText();
+		String textfield_up2 = panel1_month.getText();
 		String textfield_up3 = check_date.getText();
 		String textfield_up4 = textfield.getText();
 		String textfield_up5 = textArea.getText();
@@ -641,9 +643,9 @@ public void combo_select() {
 
 		String query = null;
 		
-		String check_year_up = check_year.getText();
+		String check_year_up = panel1_year.getText();
 
-		String check_month_up = check_month.getText();
+		String check_month_up = panel1_month.getText();
 	
 		String check_date_up = check_date.getText();
 	
@@ -664,6 +666,13 @@ public void combo_select() {
 			while (rs.next()) {
 
 				msg = new Vector<String>();
+				
+					
+				msg.add(rs.getString(3));
+				
+				msg.add(rs.getString(4));
+				
+				msg.add(rs.getString(5));
 				
 					
 				msg.add(rs.getString(2));
@@ -694,9 +703,9 @@ public void combo_select() {
 
 			String query = null;
 			
-			String check_year_up = check_year.getText();
+			String check_year_up = panel1_year.getText();
 
-			String check_month_up = check_month.getText();
+			String check_month_up = panel1_month.getText();
 		
 			String check_date_up = check_date.getText();
 		
@@ -717,12 +726,18 @@ public void combo_select() {
 					msg = new Vector<String>();
 					
 						
+					msg.add(rs.getString(3));
+					
+					msg.add(rs.getString(4));
+					
+					msg.add(rs.getString(5));
+					
+						
 					msg.add(rs.getString(2));
 
 					msg.add(rs.getString(6));
 
 					msg.add(rs.getString(7));
-
 
 					model.addRow(msg);
 					//outer.add(msg);
@@ -744,9 +759,9 @@ public void combo_select() {
 
 				String query = null;
 				
-				String check_year_up = check_year.getText();
+				String check_year_up = panel1_year.getText();
 
-				String check_month_up = check_month.getText();
+				String check_month_up = panel1_month.getText();
 			
 				String check_date_up = check_date.getText();
 			
@@ -765,6 +780,13 @@ public void combo_select() {
 					while (rs.next()) {
 
 						msg = new Vector<String>();
+						
+							
+						msg.add(rs.getString(3));
+						
+						msg.add(rs.getString(4));
+						
+						msg.add(rs.getString(5));
 						
 							
 						msg.add(rs.getString(2));
@@ -795,9 +817,9 @@ public void combo_select() {
 
 			String query = null;
 			
-			String check_year_up = check_year.getText();
+			String check_year_up = panel1_year.getText();
 
-			String check_month_up = check_month.getText();
+			String check_month_up = panel1_month.getText();
 		
 			String check_date_up = check_date.getText();
 		
@@ -818,12 +840,18 @@ public void combo_select() {
 					msg = new Vector<String>();
 					
 						
+					msg.add(rs.getString(3));
+					
+					msg.add(rs.getString(4));
+					
+					msg.add(rs.getString(5));
+					
+						
 					msg.add(rs.getString(2));
 
 					msg.add(rs.getString(6));
 
 					msg.add(rs.getString(7));
-
 
 					model.addRow(msg);
 					//outer.add(msg);
@@ -921,9 +949,9 @@ public void combo_select() {
 
 				   Vector msg = (Vector) outer.get(index);
 				   
-				   String title = (String) msg.get(1);
+				   String title = (String) msg.get(4);
 
-				   String content = (String) msg.get(2);
+				   String content = (String) msg.get(5);
 				   
 
 				   textfield.setText(title);
@@ -937,7 +965,7 @@ public void combo_select() {
 
 		});
 		
-		sp = new JScrollPane(table);
+		scrollpane = new JScrollPane(table);
 
    
     }
@@ -1112,11 +1140,11 @@ public void combo_select() {
 
 				Font font3 = new Font("SansSerif", Font.BOLD, 25);
 
-				check_date.setFont(font3);
+//				check_date.setFont(font3);
 
-				check_year.setFont(font3);
-				
-				check_month.setFont(font3);
+//				check_year.setFont(font3);
+//				
+//				check_month.setFont(font3);
 
 //				JLabel o1 = new JLabel(" / ");
 //
@@ -1155,12 +1183,12 @@ public void combo_select() {
 
 				
 
-				sp = new JScrollPane(table);
+				scrollpane = new JScrollPane(table);
 				
-				sp.setPreferredSize(new Dimension(403,350));
+				scrollpane.setPreferredSize(new Dimension(500,340));
 				
 
-			    c.add(sp);
+			    c.add(scrollpane);
 
 			    panel5.add(c,BorderLayout.CENTER);
 
@@ -1179,67 +1207,67 @@ public void combo_select() {
 			 String operation =e.getActionCommand(); //어떤 버튼이 눌렸는지 확인
 
 
-					if(operation.equals("1")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("1");data(); month2.setText(panel1_year.getText()); schedule2.setText("1"); data();  }
+					if(operation.equals("1")) { check_date.setText("1"); data(); }
 					
-					if(operation.equals("2")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("2"); month2.setText(panel1_year.getText()); schedule2.setText("2"); data(); }
+					if(operation.equals("2")) { check_date.setText("2"); data(); }
 
-					if(operation.equals("3")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("3"); month2.setText(panel1_year.getText()); schedule2.setText("3"); data(); }
+					if(operation.equals("3")) { check_date.setText("3"); data(); }
 
-					if(operation.equals("4")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("4"); month2.setText(panel1_year.getText()); schedule2.setText("4"); data(); }
+					if(operation.equals("4")) { check_date.setText("4"); data(); }
 
-					if(operation.equals("5")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("5"); month2.setText(panel1_year.getText()); schedule2.setText("5"); data(); }
+					if(operation.equals("5")) { check_date.setText("5"); data(); }
 
-					if(operation.equals("6")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("6"); month2.setText(panel1_year.getText()); schedule2.setText("6"); data(); }
+					if(operation.equals("6")) { check_date.setText("6"); data(); }
 
-					if(operation.equals("7")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("7"); month2.setText(panel1_year.getText()); schedule2.setText("7"); data(); }
+					if(operation.equals("7")) { check_date.setText("7"); data(); }
 
-					if(operation.equals("8")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("8"); month2.setText(panel1_year.getText()); schedule2.setText("8"); data(); }
+					if(operation.equals("8")) { check_date.setText("8"); data(); }
 
-					if(operation.equals("9")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("9"); month2.setText(panel1_year.getText()); schedule2.setText("9"); data(); }
+					if(operation.equals("9")) { check_date.setText("9"); data(); }
 
-					if(operation.equals("10")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("10"); month2.setText(panel1_year.getText()); schedule2.setText("10"); data(); }
+					if(operation.equals("10")) { check_date.setText("10"); data(); }
 
-					if(operation.equals("11")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("11"); month2.setText(panel1_year.getText()); schedule2.setText("11"); data(); }
+					if(operation.equals("11")) { check_date.setText("11"); data(); }
 
-					if(operation.equals("12")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("12"); month2.setText(panel1_year.getText()); schedule2.setText("12"); data(); }
+					if(operation.equals("12")) { check_date.setText("12"); data(); }
 
-					if(operation.equals("13")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("13"); month2.setText(panel1_year.getText()); schedule2.setText("13"); data(); }
+					if(operation.equals("13")) { check_date.setText("13"); data(); }
 
-					if(operation.equals("14")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("14"); month2.setText(panel1_year.getText()); schedule2.setText("14"); data(); }
+					if(operation.equals("14")) { check_date.setText("14"); data(); }
 
-					if(operation.equals("15")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("15"); month2.setText(panel1_year.getText()); schedule2.setText("15"); data(); }
+					if(operation.equals("15")) { check_date.setText("15"); data(); }
 
-					if(operation.equals("16")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("16"); month2.setText(panel1_year.getText()); schedule2.setText("16"); data(); }
+					if(operation.equals("16")) { check_date.setText("16"); data(); }
 
-					if(operation.equals("17")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("17"); month2.setText(panel1_year.getText()); schedule2.setText("17"); data(); }
+					if(operation.equals("17")) { check_date.setText("17"); data(); }
 
-					if(operation.equals("18")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("18"); month2.setText(panel1_year.getText()); schedule2.setText("18"); data(); }
+					if(operation.equals("18")) { check_date.setText("18"); data(); }
 
-					if(operation.equals("19")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("19"); month2.setText(panel1_year.getText()); schedule2.setText("19"); data(); }
+					if(operation.equals("19")) { check_date.setText("19"); data(); }
 
-					if(operation.equals("20")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("20"); month2.setText(panel1_year.getText()); schedule2.setText("20"); data(); }
+					if(operation.equals("20")) { check_date.setText("20"); data(); }
 
-					if(operation.equals("21")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("21"); month2.setText(panel1_year.getText()); schedule2.setText("21"); data(); }
+					if(operation.equals("21")) { check_date.setText("21"); data(); }
 
-					if(operation.equals("22")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("22"); month2.setText(panel1_year.getText()); schedule2.setText("22"); data(); }
+					if(operation.equals("22")) { check_date.setText("22"); data(); }
 
-					if(operation.equals("23")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("23"); data(); month2.setText(panel1_year.getText()); schedule2.setText("23");  }
+					if(operation.equals("23")) { check_date.setText("23"); data(); }
 
-					if(operation.equals("24")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("24"); month2.setText(panel1_year.getText()); schedule2.setText("24"); data(); }
+					if(operation.equals("24")) { check_date.setText("24"); data(); }
 
-					if(operation.equals("25")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("25"); month2.setText(panel1_year.getText()); schedule2.setText("25"); data(); }
+					if(operation.equals("25")) { check_date.setText("25"); data(); }
 
-					if(operation.equals("26")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("26"); month2.setText(panel1_year.getText()); schedule2.setText("26"); data(); }
+					if(operation.equals("26")) { check_date.setText("26"); data(); }
 
-					if(operation.equals("27")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("27"); month2.setText(panel1_year.getText()); schedule2.setText("27"); data(); }
+					if(operation.equals("27")) { check_date.setText("27"); data(); }
 
-					if(operation.equals("28")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("28"); month2.setText(panel1_year.getText()); schedule2.setText("28"); data(); }
+					if(operation.equals("28")) { check_date.setText("28"); data(); }
 
-					if(operation.equals("29")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("29"); month2.setText(panel1_year.getText()); schedule2.setText("29"); data(); }
+					if(operation.equals("29")) { check_date.setText("29"); data(); }
 
-					if(operation.equals("30")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("30"); month2.setText(panel1_year.getText()); schedule2.setText("30"); data(); }
+					if(operation.equals("30")) { check_date.setText("30"); data(); }
 
-					if(operation.equals("31")) { check_year.setText(panel1_year.getText()); check_month.setText(panel1_month.getText()); check_date.setText("31"); month2.setText(panel1_year.getText()); schedule2.setText("31"); data(); }
+					if(operation.equals("31")) { check_date.setText("31"); data(); }
 
 			 }
 
